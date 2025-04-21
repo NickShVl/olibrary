@@ -19,8 +19,8 @@ public class Regal {
     @Column(nullable = true)
     private String description;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="books_and_regal_matches",
-            joinColumns=  @JoinColumn(name="regals", referencedColumnName="id"),
-            inverseJoinColumns= @JoinColumn(name="books", referencedColumnName="id") )
+    @JoinTable(name="books_and_regals_matches",
+            joinColumns=  @JoinColumn(name="regal", referencedColumnName="id"),
+            inverseJoinColumns= @JoinColumn(name="book", referencedColumnName="id") )
     private ArrayList<Book> booksId;
 }
