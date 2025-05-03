@@ -58,4 +58,33 @@ public class UserServiceTest {
         assertEquals(new Date(1985, 01, 01), test.getBirthDate());
         assertEquals(2, test.getRegals().size());
     }
+    @Test
+    public void testUserFindByUsername() {
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("username");
+        user.setEMail("testemail");
+        user.setPassword("password");
+        user.setFirstName("FirstName");
+        user.setLastName("LastName");
+        user.setMiddleName("MiddleName");
+        user.setAccountCreated(new Date(1984, 01, 01));
+        user.setBirthDate(new Date(1985, 01, 01));
+        user.setRegals(new ArrayList<>(Arrays.asList(new Regal(), new Regal())));
+
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
+
+        userService.saveUser(user);
+        User test = userService.getUserByUserName("username");
+        assertEquals(1L, test.getId());
+        assertEquals("username", test.getUsername());
+        assertEquals("testemail", test.getEMail());
+        assertEquals("password", test.getPassword());
+        assertEquals("FirstName", test.getFirstName());
+        assertEquals("LastName", test.getLastName());
+        assertEquals("MiddleName", test.getMiddleName());
+        assertEquals(new Date(1984, 01, 01), test.getAccountCreated());
+        assertEquals(new Date(1985, 01, 01), test.getBirthDate());
+        assertEquals(2, test.getRegals().size());
+    }
 }

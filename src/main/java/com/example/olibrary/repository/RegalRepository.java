@@ -8,8 +8,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Optional;
+
 @Repository
 public interface RegalRepository extends JpaRepository<Regal, Long> {
+    Optional<Regal> findById(Long id);
 
     @Query("""
             SELECT r

@@ -7,8 +7,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Optional;
+
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
+    Optional<Book> findById(Long id);
     @Query("""
             SELECT b
             FROM books b

@@ -35,10 +35,10 @@ public class BookServiceTest {
         Book book = new Book();
         book.setId(1L);
         book.setName("TestName");
-        book.setDescription("Это определённо книга");
+        book.setDescription("it's book");
         book.setAuthors(new ArrayList<>(Arrays.asList(new Author(), new Author())));
         book.setGenres(new ArrayList<>(Arrays.asList(new Genre(), new Genre())));
-        book.setBookPart("Это тестовая первая страница");
+        book.setBookPart("it's first page");
 
         when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
 
@@ -47,10 +47,10 @@ public class BookServiceTest {
         Book saved = bookService.getBookById(1L);
         assertEquals(1L, saved.getId());
         assertEquals("TestName", saved.getName());
-        assertEquals("Это определённо книга", saved.getDescription());
+        assertEquals("it's book", saved.getDescription());
         assertEquals(2, saved.getAuthors().size());
         assertEquals(2, saved.getGenres().size());
-        assertEquals("Это тестовая первая страница", saved.getBookPart());
+        assertEquals("it's first page", saved.getBookPart());
     }
     @Test
     public void testBookFindByName() {
@@ -66,10 +66,10 @@ public class BookServiceTest {
         Book book = new Book();
         book.setId(1L);
         book.setName("TestName");
-        book.setDescription("Это определённо книга");
+        book.setDescription("it's book");
         book.setAuthors(new ArrayList<>(Arrays.asList(author)));
         book.setGenres(new ArrayList<>(Arrays.asList(genre)));
-        book.setBookPart("Это тестовая первая страница");
+        book.setBookPart("it's first page");
 
         when(bookRepository.findBookByName("tNa")).thenReturn(new ArrayList<>(List.of(book)));
         when(bookRepository.findBookByGenreName("tG")).thenReturn(new ArrayList<>(List.of(book)));
@@ -95,10 +95,10 @@ public class BookServiceTest {
         Book book = new Book();
         book.setId(1L);
         book.setName("TestName");
-        book.setDescription("Это определённо книга");
+        book.setDescription("it's book");
         book.setAuthors(new ArrayList<>(Arrays.asList(author)));
         book.setGenres(new ArrayList<>(Arrays.asList(genre)));
-        book.setBookPart("Это тестовая первая страница");
+        book.setBookPart("it's first page");
 
         when(bookRepository.findBookByGenreName("tG")).thenReturn(new ArrayList<>(List.of(book)));
 
@@ -122,10 +122,10 @@ public class BookServiceTest {
         Book book = new Book();
         book.setId(1L);
         book.setName("TestName");
-        book.setDescription("Это определённо книга");
+        book.setDescription("it's book");
         book.setAuthors(new ArrayList<>(Arrays.asList(author)));
         book.setGenres(new ArrayList<>(Arrays.asList(genre)));
-        book.setBookPart("Это тестовая первая страница");
+        book.setBookPart("it's first page");
 
         when(bookRepository.findBookByAuthorInfo("tA")).thenReturn(new ArrayList<>(List.of(book)));
 

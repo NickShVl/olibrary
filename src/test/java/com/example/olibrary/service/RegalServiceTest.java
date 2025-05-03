@@ -5,7 +5,6 @@ import com.example.olibrary.model.Book;
 import com.example.olibrary.model.Genre;
 import com.example.olibrary.model.Regal;
 import com.example.olibrary.repository.RegalRepository;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -64,10 +63,10 @@ public class RegalServiceTest {
         Book book = new Book();
         book.setId(1L);
         book.setName("TestName");
-        book.setDescription("Это определённо книга");
+        book.setDescription("it's book");
         book.setAuthors(new ArrayList<>(Arrays.asList(author)));
         book.setGenres(new ArrayList<>(Arrays.asList(genre)));
-        book.setBookPart("Это тестовая первая страница");
+        book.setBookPart("it's first part");
 
         Regal regal = new Regal();
         regal.setId(1L);
@@ -98,10 +97,10 @@ public class RegalServiceTest {
         Book book = new Book();
         book.setId(1L);
         book.setName("TestName");
-        book.setDescription("Это определённо книга");
+        book.setDescription("it's book");
         book.setAuthors(new ArrayList<>(Arrays.asList(author)));
         book.setGenres(new ArrayList<>(Arrays.asList(genre)));
-        book.setBookPart("Это тестовая первая страница");
+        book.setBookPart("it's first page");
 
         Regal regal = new Regal();
         regal.setId(1L);
@@ -132,10 +131,10 @@ public class RegalServiceTest {
         Book book = new Book();
         book.setId(1L);
         book.setName("TestName");
-        book.setDescription("Это определённо книга");
+        book.setDescription("it's book");
         book.setAuthors(new ArrayList<>(Arrays.asList(author)));
         book.setGenres(new ArrayList<>(Arrays.asList(genre)));
-        book.setBookPart("Это тестовая первая страница");
+        book.setBookPart("it's first page");
 
         Regal regal = new Regal();
         regal.setId(1L);
@@ -166,10 +165,10 @@ public class RegalServiceTest {
         Book book = new Book();
         book.setId(1L);
         book.setName("TestName");
-        book.setDescription("Это определённо книга");
+        book.setDescription("it's book");
         book.setAuthors(new ArrayList<>(Arrays.asList(author)));
         book.setGenres(new ArrayList<>(Arrays.asList(genre)));
-        book.setBookPart("Это тестовая первая страница");
+        book.setBookPart("it's first page");
 
         Regal regal = new Regal();
         regal.setId(1L);
