@@ -5,6 +5,8 @@ import com.example.olibrary.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class GenreService {
     @Autowired
@@ -12,6 +14,9 @@ public class GenreService {
 
     public Genre getGenreById(Long id) {
         return genreRepository.findById(id).orElse(null);
+    }
+    public ArrayList<Genre> findGenreByName(String name) {
+        return genreRepository.findGenreByName(name);
     }
 
     public Genre saveGenre(Genre author) {

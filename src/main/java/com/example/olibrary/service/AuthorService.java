@@ -5,6 +5,8 @@ import com.example.olibrary.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class AuthorService {
     @Autowired
@@ -12,6 +14,9 @@ public class AuthorService {
 
     public Author getAuthorById(Long id) {
         return authorRepository.findById(id).orElse(null);
+    }
+    public ArrayList<Author> findAuthorsBySomeString(String s) {
+        return authorRepository.findAuthorsBySomeInformation(s);
     }
 
     public Author saveAuthor(Author author) {

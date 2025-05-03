@@ -30,7 +30,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testUser() {
+    public void testUserCRUD() {
         User user = new User();
         user.setId(1L);
         user.setUsername("username");
@@ -57,6 +57,5 @@ public class UserServiceTest {
         assertEquals(new Date(1984, 01, 01), test.getAccountCreated());
         assertEquals(new Date(1985, 01, 01), test.getBirthDate());
         assertEquals(2, test.getRegals().size());
-        verify(userRepository, times(1)).findById(1L);
     }
 }

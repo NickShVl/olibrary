@@ -17,21 +17,21 @@ create table if not exists books (
 );
 
 create table if not exists books_and_authors_matches (
-	book int8 NOT NULL,
-	author int8 NOT NULL,
-	PRIMARY KEY (book, author)
+	book_id int8 references books(id) NOT NULL,
+	author_id int8 references authors(id) NOT NULL,
+	PRIMARY KEY (book_id, author_id)
 );
 
 create table if not exists books_and_genres_matches (
-	book int8 NOT NULL,
-	genre int8 NOT NULL,
-	PRIMARY KEY (book, genre)
+	book_id int8 references books(id) NOT NULL,
+	genre_id int8 references genres(id) NOT NULL,
+	PRIMARY KEY (book_id, genre_id)
 );
 
 create table if not exists books_and_regals_matches (
-	book int8 NOT NULL,
-	regal int8 NOT NULL,
-	PRIMARY KEY (book, regal)
+	book_id int8 references books(id) NOT NULL,
+	regal_id int8 references regals(id) NOT NULL,
+	PRIMARY KEY (book_id, regal_id)
 );
 
 create table if not exists genres (
@@ -44,8 +44,7 @@ create table if not exists regals (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) UNIQUE not null,
 	description VARCHAR(255)
-	user_id int8 not null,
-	regalse_id int8 not null
+	user_id int8 references users(id) not null,
 );
 
 create table if not exists users (
