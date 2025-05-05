@@ -1,17 +1,18 @@
 package com.example.olibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "users")
 @Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User implements Comparable<User>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,5 +34,11 @@ public class User {
     private Date birthDate;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private ArrayList<Regal> regals;
+    @JsonManagedReference
+    private List<Regal> regals;
+
+    @Override
+    public int compareTo(User u) {
+        return this.id.compareTo(u.id);
+    }
 }

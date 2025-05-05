@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -21,6 +21,6 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
             OR a.middleName LIKE %:name%
             OR a.alias LIKE %:name%
             """)
-    ArrayList<Author> findAuthorsBySomeInformation(@Param("name") String name);
+    List<Author> findAuthorsBySomeInformation(@Param("name") String name);
 
 }

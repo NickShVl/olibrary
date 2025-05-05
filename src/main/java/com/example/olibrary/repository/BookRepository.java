@@ -7,11 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findById(Long id);
+
     @Query("""
             SELECT b
             FROM books b
@@ -19,28 +21,27 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             """)
     ArrayList<Book> findBookByName(@Param("name") String name);
 
-
     @Query("""
             SELECT b
-            FROM regals r
-            JOIN books b
+            FROM books b
             JOIN genres g
             WHERE g.name LIKE %:name%
             """)
-    ArrayList<Book> findBookByGenreName(
+    List<Book> findBookByGenreName(
             @Param("name") String name
     );
+
     @Query("""
             SELECT b
-            FROM regals r
-            JOIN books b
+            FROM books b
             JOIN authors a
             WHERE a.firstName LIKE %:name%
             OR a.lastName LIKE %:name%
             OR a.middleName LIKE %:name%
             OR a.alias LIKE %:name%
             """)
-    ArrayList<Book> findBookByAuthorInfo(
+    List<Book> findBookByAuthorInfo(
             @Param("name") String name
     );
+
 }

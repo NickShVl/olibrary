@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,6 +17,6 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
             FROM books g
             WHERE g.name LIKE %:name%
             """)
-    ArrayList<Genre> findGenreByName(@Param("name") String name);
+    List<Genre> findGenreByName(@Param("name") String name);
 
 }

@@ -1,8 +1,14 @@
 package com.example.olibrary.controller;
 
+import com.example.olibrary.exceptions.NotFoundException;
 import com.example.olibrary.model.Author;
 import com.example.olibrary.service.AuthorService;
+import com.example.olibrary.dto.author.AuthorCreateRequest;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
+
+    @ApiResponse(responseCode = "404", description = "Пользователь не найден",
+            content = @Content(schema = @Schema(implementation = NotFoundException.class)))
     @GetMapping("/{authorId}")
     public Author getAuthorById(@PathVariable Long authorId) {
         return authorService.getAuthorById(authorId);
@@ -21,7 +30,7 @@ public class AuthorController {
     }
 
     @PostMapping("/create")
-    public Author createAuthor(@PathVariable Author author) {
-        return authorService.saveAuthor(author);
+    public Author createAuthor(@RequestBody @Validated AuthorCreateRequest request) {
+        return authorService.saveAuthor(request.makeAuthor());
     }
 }

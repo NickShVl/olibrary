@@ -1,16 +1,18 @@
 package com.example.olibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "books")
 @Table(name = "books")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+public class Book implements Comparable<Book>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,18 +21,29 @@ public class Book {
     @Column(nullable = true, name = "description")
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name="books_and_authors_matches",
             joinColumns=  @JoinColumn(name="book_id", referencedColumnName="id"),
             inverseJoinColumns= @JoinColumn(name="author_id", referencedColumnName="id") )
-    private ArrayList<Author> authors;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Author> authors;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name="books_and_genres_matches",
             joinColumns=  @JoinColumn(name="book_id", referencedColumnName="id"),
             inverseJoinColumns= @JoinColumn(name="genre_id", referencedColumnName="id") )
-    private ArrayList<Genre> genres;
+    @JsonManagedReference
+    private List<Genre> genres;
 
     @Column(nullable = false, name = "book_part")
     @Lob
     private String bookPart;
+
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    @JsonBackReference
+    private List<Regal> regals;
+
+    @Override
+    public int compareTo(Book b) {
+        return this.id.compareTo(b.id);
+    }
 }

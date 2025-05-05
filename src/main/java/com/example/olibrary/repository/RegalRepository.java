@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -19,7 +19,7 @@ public interface RegalRepository extends JpaRepository<Regal, Long> {
             FROM regals r
             WHERE r.name LIKE %:name%
             """)
-    ArrayList<Regal> findRegalByName(@Param("name") String name);
+    List<Regal> findRegalByName(@Param("name") String name);
 
     @Query("""
             SELECT b
@@ -28,7 +28,7 @@ public interface RegalRepository extends JpaRepository<Regal, Long> {
             WHERE b.name LIKE %:name%
             AND r.id = :id
             """)
-    ArrayList<Book> findBookOnRegalByBookName(
+    List<Book> findBookOnRegalByBookName(
             @Param("id") Long id,
             @Param("name") String name
     );
@@ -41,7 +41,7 @@ public interface RegalRepository extends JpaRepository<Regal, Long> {
             WHERE g.name LIKE %:name%
             AND r.id = :id
             """)
-    ArrayList<Book> findBookOnRegalByGenreName(
+    List<Book> findBookOnRegalByGenreName(
             @Param("id") Long id,
             @Param("name") String name
     );
@@ -56,7 +56,7 @@ public interface RegalRepository extends JpaRepository<Regal, Long> {
             OR a.alias LIKE %:name%)
             AND r.id = :id
             """)
-    ArrayList<Book> findBookOnRegalByAuthorInfo(
+    List<Book> findBookOnRegalByAuthorInfo(
             @Param("id") Long id,
             @Param("name") String name
     );

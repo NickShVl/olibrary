@@ -1,16 +1,18 @@
 package com.example.olibrary.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "authors")
 @Table(name = "authors")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Author{
+public class Author implements Comparable<Author>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +30,14 @@ public class Author{
     private Date deathDate;
     @Column(nullable = false, name = "century")
     private int century;
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+    @JsonBackReference
+    private List<Book> books;
+
+    @Override
+    public int compareTo(Author a){
+        return this.id.compareTo(a.id);
+    }
 }
 
 

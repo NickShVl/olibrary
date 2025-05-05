@@ -2,7 +2,9 @@ package com.example.olibrary.controller;
 
 import com.example.olibrary.model.Genre;
 import com.example.olibrary.service.GenreService;
+import com.example.olibrary.dto.genre.GenreCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +23,7 @@ public class GenreController {
     }
 
     @PostMapping("/create")
-    public Genre createGenre(@PathVariable Genre genre) {
-        return genreService.saveGenre(genre);
+    public Genre createGenre(@RequestBody @Validated GenreCreateRequest request) {
+        return genreService.saveGenre(request.makeGenre());
     }
 }

@@ -2,7 +2,9 @@ package com.example.olibrary.controller;
 
 import com.example.olibrary.model.User;
 import com.example.olibrary.service.UserService;
+import com.example.olibrary.dto.user.UserCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public User createUser(@PathVariable User user) {
-        return userService.saveUser(user);
+    public User createUser(@RequestBody @Validated UserCreateRequest request) {
+        return userService.saveUser(request.makeUser());
     }
 }

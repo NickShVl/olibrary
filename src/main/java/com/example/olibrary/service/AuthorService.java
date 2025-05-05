@@ -1,5 +1,6 @@
 package com.example.olibrary.service;
 
+import com.example.olibrary.exceptions.NotFoundException;
 import com.example.olibrary.model.Author;
 import com.example.olibrary.repository.AuthorRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
+
 @Slf4j
 @Service
 public class AuthorService {
@@ -15,11 +18,13 @@ public class AuthorService {
 
     public Author getAuthorById(Long id) {
         log.info("Trying to find author by id={}", id);
-        return authorRepository.findById(id).orElse(null);
+        Optional<Author> author = authorRepository.findById(id);
+        if(author.isEmpty()) throw new NotFoundException("Author not found");
+        return author.get();
     }
     public ArrayList<Author> findAuthorsBySomeString(String info) {
         log.info("Trying to find author by info like '{}'", info);
-        return authorRepository.findAuthorsBySomeInformation(info);
+        return new ArrayList<>(authorRepository.findAuthorsBySomeInformation(info));
     }
 
     public Author saveAuthor(Author author) {
@@ -29,6 +34,10 @@ public class AuthorService {
 
     public void deleteAuthorById(Long id) {
         log.info("Trying to delete author by id={}", id);
+        Optional<Author> author = authorRepository.findById(id);
+        if(author.isEmpty()) {
+            throw new NotFoundException("Author not found");
+        }
         authorRepository.deleteById(id);
     }
 
