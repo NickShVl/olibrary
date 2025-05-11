@@ -2,6 +2,7 @@ package com.example.olibrary.utils;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+import com.example.olibrary.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -14,13 +15,13 @@ public class JWTUtils {
     @Autowired
     private JwtEncoder encoder;
 
-    public String generateToken(String username) {
+    public String generateToken(User user) {
         Instant now = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
                 .expiresAt(now.plus(1, ChronoUnit.HOURS))
-                .subject(username)
+                .subject(user.toString())
                 .build();
         return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }

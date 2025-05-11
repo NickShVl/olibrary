@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,6 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
-    @ApiResponse(responseCode = "404", description = "Пользователь не найден",
-            content = @Content(schema = @Schema(implementation = NotFoundException.class)))
     @GetMapping("/{authorId}")
     public Author getAuthorById(@PathVariable Long authorId) {
         return authorService.getAuthorById(authorId);

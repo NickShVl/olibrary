@@ -12,11 +12,15 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -31,43 +35,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector)
             throws Exception {
-        return http
+        http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        //для неавторизованных пользователей
-                        .requestMatchers(
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**",
-                                "/swagger-ui.html",
-                                "/api/**"
-                        ).permitAll()
-                        //для авторизованных хоть как-то
-                        .requestMatchers(
-                                "/book/find/**",
-                                "/authors/find/**",
-                                "/regals/find/**",
-                                "/genres/find/**",
-                                "/users/{userId}",
-                                "/regals/add",
-                                "/regals/create",
-                                "/regals/{regalId}"
-                        ).hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                        //для админов
-                        .requestMatchers(
-                                "/**"
-                        ).hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/login").permitAll()
                         .anyRequest().authenticated()
                 )
-//                .formLogin(form -> form
-//                        .loginPage("/login")
-//                        .loginProcessingUrl("/api/login")
-//                        .defaultSuccessUrl("/swagger-ui/index.html")
-//                        .permitAll()
-//                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer((rs) -> rs.jwt((jwt) -> jwt.decoder(jwtDecoder)))
-                .httpBasic(Customizer.withDefaults())
-                .build();
+                .httpBasic(Customizer.withDefaults());
+        return http.build();
     }
 
     @Bean
