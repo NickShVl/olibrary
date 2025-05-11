@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class UserServiceTest {
+    @Mock
+    PasswordEncoder passwordEncoder;
     @Mock
     private UserRepository userRepository;
 
@@ -45,12 +49,12 @@ public class UserServiceTest {
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        userService.saveUser(user);
-        User test = userService.getUserById(1L);
+        userService.createUser(user);
+        User test = userService.loadUserById(1L);
         assertEquals(1L, test.getId());
         assertEquals("username", test.getUsername());
         assertEquals("testemail", test.getEMail());
-        assertEquals("password", test.getPassword());
+        assertEquals(passwordEncoder.encode("password"), test.getPassword());
         assertEquals("FirstName", test.getFirstName());
         assertEquals("LastName", test.getLastName());
         assertEquals("MiddleName", test.getMiddleName());
@@ -74,12 +78,12 @@ public class UserServiceTest {
 
         when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
 
-        userService.saveUser(user);
-        User test = userService.getUserByUserName("username");
+        userService.createUser(user);
+        User test = userService.loadUserByUsername("username");
         assertEquals(1L, test.getId());
         assertEquals("username", test.getUsername());
         assertEquals("testemail", test.getEMail());
-        assertEquals("password", test.getPassword());
+        assertEquals(passwordEncoder.encode("password"), test.getPassword());
         assertEquals("FirstName", test.getFirstName());
         assertEquals("LastName", test.getLastName());
         assertEquals("MiddleName", test.getMiddleName());

@@ -25,6 +25,8 @@ public class UserCreateRequest {
     private String lastName;
     @Schema(description = "Отчество", example = "Максимович")
     private String middleName;
+
+    @NotBlank
     @Schema(description = "Дата рождения", example = "1868-03-16")
     private Date birthDate;
     @Schema(description = "Дата смерти", example = "1936-06-18")

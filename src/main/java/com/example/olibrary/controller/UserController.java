@@ -14,7 +14,7 @@ public class UserController {
     private UserService userService;
     @GetMapping("/{userId}")
     public User getUserById(@PathVariable Long userId) {
-        return userService.getUserById(userId);
+        return userService.loadUserById(userId);
     }
 
     @DeleteMapping("/{userId}")
@@ -24,6 +24,6 @@ public class UserController {
 
     @PostMapping("/create")
     public User createUser(@RequestBody @Validated UserCreateRequest request) {
-        return userService.saveUser(request.makeUser());
+        return userService.createUser(request.makeUser());
     }
 }
