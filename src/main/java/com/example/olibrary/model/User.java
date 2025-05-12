@@ -17,6 +17,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class User implements Comparable<User>, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

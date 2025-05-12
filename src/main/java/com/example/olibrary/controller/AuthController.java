@@ -30,9 +30,8 @@ public class AuthController {
                 authRequest.getUsername(), authRequest.getPassword());
 
         authenticationManager.authenticate(authentication);
-        User user = userService.loadUserByUsername(authRequest.getUsername());
 
-        var token = jwtUtils.generateToken(user);
+        var token = jwtUtils.generateToken(authRequest.getUsername());
         return token;
     }
 

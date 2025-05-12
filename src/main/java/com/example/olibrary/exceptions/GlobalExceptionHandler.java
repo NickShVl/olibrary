@@ -18,9 +18,17 @@ public class GlobalExceptionHandler {
     public ExceptionDto handleConflict(ConflictException e){
         return new ExceptionDto(e.getMessage());
     }
+
+    @ExceptionHandler(AccessDenialException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public ExceptionDto handleAccessDenial(Exception e){
+        return new ExceptionDto(e.getMessage());
+    }
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionDto handleInternalError(Exception e){
         return new ExceptionDto(e.getMessage());
     }
+
+
 }

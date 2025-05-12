@@ -4,6 +4,7 @@ import com.example.olibrary.enums.Role;
 import com.example.olibrary.exceptions.NotFoundException;
 import com.example.olibrary.model.User;
 import com.example.olibrary.repository.UserRepository;
+import com.example.olibrary.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,9 @@ public class UserService implements UserDetailsManager {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserUtils userUtils;
+
     public User loadUserById(Long id) {
         log.info("Trying to get user by id={}", id);
         Optional<User> user = userRepository.findById(id);

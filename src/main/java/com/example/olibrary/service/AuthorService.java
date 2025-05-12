@@ -3,6 +3,7 @@ package com.example.olibrary.service;
 import com.example.olibrary.exceptions.NotFoundException;
 import com.example.olibrary.model.Author;
 import com.example.olibrary.repository.AuthorRepository;
+import com.example.olibrary.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ import java.util.Optional;
 public class AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
+
+    @Autowired
+    private UserUtils userUtils;
 
     public Author getAuthorById(Long id) {
         log.info("Trying to find author by id={}", id);
