@@ -47,7 +47,7 @@ dependencies {
 	// Dev tools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8'
-	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
 
 	// Testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
