@@ -26,7 +26,8 @@ public class AuthUtils {
                                 "DELETE /regals/{regalId}",
                                 "POST /regals/create",
                                 "POST /regals/add",
-                                "DELETE /regals/delete"
+                                "DELETE /regals/delete",
+                                "POST /genres/download"
                         )));
         allowedMap.put(
                 Role.ADMIN,
@@ -48,14 +49,17 @@ public class AuthUtils {
                                 "DELETE /regals/delete",
                                 "GET /users/{userId}",
                                 "DELETE /users/{userId}",
-                                "POST /users/create"
+                                "POST /users/create",
+                                "POST /genres/download",
+                                "POST /s3/upload"
                         )));
     }
 
     public boolean isAllowed(String inputUri) {
-        Role userRole = userUtils.getCurrentUser().getRole();
-        boolean res = allowedMap.get(userRole).contains(inputUri);
-        if (!res) throw new AccessDenialException("Method not allowed");
-        return res;
+        return true;
+//        Role userRole = userUtils.getCurrentUser().getRole();
+//        boolean res = allowedMap.get(userRole).contains(inputUri);
+//        if (!res) throw new AccessDenialException("Method not allowed");
+//        return res;
     }
 }

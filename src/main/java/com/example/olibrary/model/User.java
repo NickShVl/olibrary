@@ -49,6 +49,11 @@ public class User implements Comparable<User>, UserDetails {
     @JsonManagedReference
     private List<Regal> regals;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "owner")
+    @JsonManagedReference
+    private List<Session> sessions;
+
     @Override
     public int compareTo(User u) {
         return this.id.compareTo(u.id);

@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "olibrary"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "123456"
+    volumes:
+      - ../main/resources/db:/docker-entrypoint-initdb.d
+      - olibrary-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+      
+  minio:
+    image: quay.io/minio/minio
+    command: server /data --console-address ":9090"
+    restart: always
+    ports:
+      - 9000:9000
+      - 9090:9090
+    volumes:
+      - ../main/resources/miniIo/data:/data
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=123456789
+    networks:
+      - minio_net
+
+volumes:
+  olibrary-data:
+
+networks:
+  minio_net:

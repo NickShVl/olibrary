@@ -20,6 +20,8 @@ public class Book implements Comparable<Book>{
     private String name;
     @Column(nullable = true, name = "description")
     private String description;
+    @Column(nullable = false, name = "bookLink")
+    private String bookFileName;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name="books_and_authors_matches",
@@ -42,8 +44,15 @@ public class Book implements Comparable<Book>{
     @JsonBackReference
     private List<Regal> regals;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "linked_book")
+    @JsonBackReference
+    private List<Session> sessions;
+
     @Override
     public int compareTo(Book b) {
         return this.id.compareTo(b.id);
     }
+
+
 }
