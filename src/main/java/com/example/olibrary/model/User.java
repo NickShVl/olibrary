@@ -44,13 +44,12 @@ public class User implements Comparable<User>, UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @JsonManagedReference
     private List<Regal> regals;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Session> sessions;
 

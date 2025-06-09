@@ -21,5 +21,15 @@ public class Session {
     @Column(nullable = false, name = "stop_position")
     private Integer stopPosition;
 
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User owner;
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id")
+    @JsonManagedReference
+    private Book linkedBook;
+
 
 }

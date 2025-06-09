@@ -44,8 +44,7 @@ public class Book implements Comparable<Book>{
     @JsonBackReference
     private List<Regal> regals;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "linked_book")
+    @OneToMany(mappedBy = "linkedBook", fetch = FetchType.EAGER)
     @JsonBackReference
     private List<Session> sessions;
 

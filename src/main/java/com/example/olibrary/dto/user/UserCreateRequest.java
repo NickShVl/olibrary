@@ -16,7 +16,6 @@ public class UserCreateRequest {
     @Email
     @Schema(description = "e-mail", example = "example@example.ru")
     private String email;
-    @NotBlank
     @Schema(description = "Пароль", example = "password")
     private String password;
     @Schema(description = "Имя", example = "Алексей")
@@ -26,7 +25,6 @@ public class UserCreateRequest {
     @Schema(description = "Отчество", example = "Максимович")
     private String middleName;
 
-    @NotBlank
     @Schema(description = "Дата рождения", example = "1868-03-16")
     private Date birthDate;
     @Schema(description = "Дата смерти", example = "1936-06-18")

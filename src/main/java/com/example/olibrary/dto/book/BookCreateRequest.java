@@ -28,18 +28,24 @@ public class BookCreateRequest {
 
     @Schema(description = "Часть книги", example = "Тварь я дрожащая, или право имею")
     private String bookPart;
+    @NotBlank
+    @Schema(description = "Имя файла книги", example = "testBook.txt")
+    private String bookFileName;
+
     public BookCreateRequest(
             String name,
             String description,
             ArrayList<Long> authorsId,
             ArrayList<Long> genresId,
-            String bookPart
+            String bookPart,
+            String bookFileName
     ) {
         this.name = name;
         this.description = description;
         this.authorsId = new ArrayList<>(authorsId);
         this.genresId = new ArrayList<>(genresId);
         this.bookPart = bookPart;
+        this.bookFileName = bookFileName;
     }
 
     public Book makeBook() {
@@ -63,6 +69,7 @@ public class BookCreateRequest {
         }
         genres = new ArrayList<>(new TreeSet<>(genres));
         book.setGenres(genres);
+        book.setBookFileName(bookFileName);
         return book;
     }
 }

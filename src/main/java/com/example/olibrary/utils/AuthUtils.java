@@ -27,7 +27,13 @@ public class AuthUtils {
                                 "POST /regals/create",
                                 "POST /regals/add",
                                 "DELETE /regals/delete",
-                                "POST /genres/download"
+                                "POST /genres/download",
+                                "GET /session/{sessionId}",
+                                "DELETE /session/{sessionId}",
+                                "POST /session/create",
+                                "POST /session/{sessionId}/next",
+                                "POST /session/{sessionId}/previous",
+                                "GET /session/{sessionId}/book"
                         )));
         allowedMap.put(
                 Role.ADMIN,
@@ -51,15 +57,20 @@ public class AuthUtils {
                                 "DELETE /users/{userId}",
                                 "POST /users/create",
                                 "POST /genres/download",
-                                "POST /s3/upload"
+                                "POST /s3/upload",
+                                "GET /session/{sessionId}",
+                                "DELETE /session/{sessionId}",
+                                "POST /session/create",
+                                "POST /session/{sessionId}/next",
+                                "POST /session/{sessionId}/previous",
+                                "GET /session/{sessionId}/book"
                         )));
     }
 
     public boolean isAllowed(String inputUri) {
-        return true;
-//        Role userRole = userUtils.getCurrentUser().getRole();
-//        boolean res = allowedMap.get(userRole).contains(inputUri);
-//        if (!res) throw new AccessDenialException("Method not allowed");
-//        return res;
+        Role userRole = userUtils.getCurrentUser().getRole();
+        boolean res = allowedMap.get(userRole).contains(inputUri);
+        if (!res) throw new AccessDenialException("Method not allowed");
+        return res;
     }
 }

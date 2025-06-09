@@ -28,7 +28,7 @@ public class UserService implements UserDetailsManager {
         log.info("Trying to get user by id={}", id);
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
-            throw new NotFoundException("Regal not found");
+            throw new NotFoundException("User not found");
         }
         return user.get();
     }
